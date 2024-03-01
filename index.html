@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="flex mx-auto w-2/3 shadow-lg gap-2 py-6 px-4 ">
+                <a href="index.html">Home</a>
+                <a href="challange.html">Challange</a>
+                <a href="post.html">Post</a>
+                <a href="new.html">users</a>
+            </div>
+        </nav>
+    </header>
+    <section class="container w-2/3 mx-auto mt-10">
+        <h4 class="text-center text-2xl font-bold">Bapper Bank</h4>
+        <div class="gap-4 grid-cols-3 grid mt-6">
+            <div class="top bg-green-400 p-10  rounded">
+                <h4 class="text-xl font-bold">Deosit</h4>
+                <h5 class="text-xl">$<span id="dpTotalAmount">00</span></h5>
+            </div>
+            <div class="top bg-green-300 p-10  rounded">
+                <h4 class="text-xl font-bold">Withdraw</h4>
+                <h5 class="text-xl">$<span id="wdTotalAmount">00</span></h5>
+            </div>
+            <div class="top bg-green-200 p-10  rounded">
+                <h4 class="text-xl font-bold">Balance</h4>
+                <h5 class="text-xl">$<Span id="totalAmount">400</Span></h5>
+            </div>
+        </div>
+        <div class="gap-4 grid grid-cols-2">
+            <div class="dpContainer bg-green-200 rounded p-10 mt-10">
+                <h4 class="text-xl font-bold">Deposit Amount</h4>
+                <input class="block my-4 p-3 w-2/3" type="text" id="dpInput" placeholder="Enter your Amount">
+                <button class="px-7 mt-8 py-3 bg-green-400 hover:bg-green-300 rounded" type="submit" id="dpSubmit">Deposit</button>
+            </div>
+            <div class="wdContainer bg-green-400 rounded p-10 mt-10">
+                <h4 class="text-xl font-bold">Withdraw Amount</h4>
+                <input class="block my-4 p-3 w-2/3" type="text" id="wdInput" placeholder="Enter your Amount">
+                <button class="px-7 mt-8 py-3 bg-green-200 hover:bg-green-300 rounded" type="submit" id="wdSubmit">Withdraw</button>
+            </div>
+        </div>
+    </section>
+    <script>
+
+        function getInputField(inputValue){
+            let inputValueA=document.getElementById(inputValue);
+            let inputString=parseFloat(inputValueA.value);
+            return inputString;
+        }
+        function getElementAmount(elementId){
+            let getElementId=document.getElementById(elementId);
+            let stringToNumber=parseFloat(getElementId.innerText);
+            return stringToNumber;
+        }
+        function setElementAmount(id,value){
+            let elementValue=document.getElementById(id);
+            elementValue.innerText=value;
+
+            let totalBalanceAmount=document.getElementById(id);
+            totalBalanceAmount.innerText=value;
+        }
+
+        document.getElementById("dpSubmit").addEventListener("click",function(){
+            let inputValueAmount=getInputField("dpInput");
+            if(isNaN(inputValueAmount)){
+                return alert("Enter a number")
+            }
+
+            let elementTotal=getElementAmount('dpTotalAmount');
+            let elementTotalBalance=getElementAmount("totalAmount")
+            let totalDP=inputValueAmount+elementTotal;
+            let totalBalanceWithDP=inputValueAmount+elementTotalBalance;
+            setElementAmount("dpTotalAmount",totalDP);
+            setElementAmount("totalAmount",totalBalanceWithDP);
+        })
+        document.getElementById("wdSubmit").addEventListener("click",function(){
+            let inputValueAmount=getInputField("wdInput");
+            if(isNaN(inputValueAmount)){
+                return alert("enter a number")
+            }
+            let elementTotal=getElementAmount('wdTotalAmount');
+            let elementTotalBalance=getElementAmount("totalAmount")
+            let totalDP=inputValueAmount+elementTotal;
+            let totalBalanceWithDP=elementTotalBalance-inputValueAmount;
+            setElementAmount("wdTotalAmount",totalDP);
+            setElementAmount("totalAmount",totalBalanceWithDP);
+        })
+    </script>
+</body>
+</html>
